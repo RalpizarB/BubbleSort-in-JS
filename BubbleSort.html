@@ -1,0 +1,134 @@
+<div class="canvas-container">
+    <canvas id="canvas" width="400" height="400"></canvas>
+  </div>
+  
+  <div class="buttons-container">
+    <button id="next-btn">Next</button>
+    <button id="play-btn">Play</button>
+    <button id="stop-btn">Stop</button>
+  </div>
+  
+  
+<style>
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.canvas-container {
+  border: 2px solid #333;
+  padding: 10px;
+  display: inline-block;
+}
+
+.buttons-container {
+  margin-top: 20px;
+}
+
+button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+button:active {
+  background-color: #777;
+}
+</style>
+<script>
+    window.onload = function() {
+    canv = document.getElementById("canvas");
+    ctx = canv.getContext("2d");
+    // Add event listeners for the buttons
+    document.getElementById("next-btn").addEventListener("click", nextStep);
+    document.getElementById("play-btn").addEventListener("click", play);
+    document.getElementById("stop-btn").addEventListener("click", stop);
+
+}
+
+var longitudArreglo = 20 - 1;
+var sortme = [longitudArreglo];
+var i = 0;
+var p = 0;
+var playIntervalId;
+
+fill();
+sortme.reverse();
+drawCanvasBG();
+drawsort(sortme);
+
+function fill() {
+    var j;
+    for (j = 0; j <= longitudArreglo; j++) {
+        sortme[j] = j + 1;
+    }
+}
+
+function sortbubble(k) {
+    if (p == sortme.length - 1 - k) {
+        p = 0;
+        i++;
+    }
+    if (sortme[p] > sortme[p + 1]) {
+        [sortme[p], sortme[p + 1]] = [sortme[p + 1], sortme[p]];
+    }
+    drawCanvasBG();
+    drawsort(sortme);
+    p++;
+}
+
+function drawsort(array) {
+    ctx.fillStyle = "white";
+    var j = 0;
+    for (j = 0; j <= array.length; j++) {
+        if (j == p || j == p + 1) { // Use accent color for bars being compared
+            ctx.fillStyle = "red";
+        } else {
+            ctx.fillStyle = "white";
+        }
+        ctx.fillRect(j * canv.width / array.length, canv.height, canv.width / array.length, array[j] * canv.height / Math.max.apply(null, sortme) * -1);
+    }
+}
+
+function drawCanvasBG() {
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, canv.width, canv.height);
+    ctx.fillStyle = "white";
+}
+
+
+function nextStep() {
+    stop();
+    if (i == sortme.length - 1) {
+        sortme.reverse();
+        i = 0;
+        p = 0;
+    }
+    sortbubble(i);
+}
+function play() {
+    if (playIntervalId) {
+        clearInterval(playIntervalId);
+    }
+    playIntervalId = setInterval(function() {
+        if (i == sortme.length - 1) {
+            sortme.reverse();
+            i = 0;
+            p = 0;
+        }
+        sortbubble(i);
+    }, 1 * (1000 / 15));
+}
+function stop() {
+    clearInterval(playIntervalId);
+    playIntervalId = null;
+}
+</script>
