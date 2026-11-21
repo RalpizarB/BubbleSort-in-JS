@@ -9,3 +9,10 @@ The "Next" button allows you to step through the sorting process one step at a t
 The code uses event listeners to detect when the buttons are clicked and calls the appropriate functions to perform the desired action. The main functions of the code are fill, sortbubble, drawsort, and drawCanvasBG, which handle the initialization of the array, the sorting algorithm, and the visualization of the array in the canvas.
 
 To use this code, simply open the HTML file in a web browser and interact with the buttons to observe the sorting process. The code can be easily modified to sort a different array of numbers by changing the values in the sortme array.
+
+
+---
+
+## Estado (inventario 2026-11-20)
+
+Rama `respaldo-limpieza-2026-11-20`: respaldo creado antes de limpiar la carpeta local `Documents\GitHub`. Incluye los cambios locales que no tenían commit y este README. La rama principal no se modificó.

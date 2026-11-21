@@ -20,7 +20,7 @@
         <button id="play-btn">Play</button>
         <button id="stop-btn">Stop</button>
     </div>
-
+    <p id="comparison-counter"></p>
 
     <style>
         .container {
@@ -64,7 +64,7 @@
             document.getElementById("next-btn").addEventListener("click", nextStep);
             document.getElementById("play-btn").addEventListener("click", play);
             document.getElementById("stop-btn").addEventListener("click", stop);
-
+            document.getElementById("comparison-counter").innerHTML = "Comparisons: " + comparisonCounter;
         }
 
         var arrayLength = 20 - 1;
@@ -72,7 +72,7 @@
         var outerLoopIndex = 0;
         var innerLoopIndex = 0;
         var playIntervalId;
-
+        var comparisonCounter = 0;
         fill();
         sortme.reverse();
         drawCanvasBG();
@@ -94,6 +94,8 @@
             }
             if (sortme[innerLoopIndex] > sortme[innerLoopIndex + 1]) {
                 [sortme[innerLoopIndex], sortme[innerLoopIndex + 1]] = [sortme[innerLoopIndex + 1], sortme[innerLoopIndex]];
+                comparisonCounter++;
+                document.getElementById("comparison-counter").innerHTML = "Comparisons: " + comparisonCounter;
             }
 
             innerLoopIndex++;
